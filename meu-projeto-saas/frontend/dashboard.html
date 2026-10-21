@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS TaskAudit - Central de Operações</title>
+    <link rel="icon" type="image/png" href="https://help.apple.com/assets/68DC426DED36202599014CA7/68DC426FED36202599014CB3/pt_BR/9440616a1ad2b8f57bd2e80bcd2c5f96.png">
+    <!-- CORREÇÃO DO CAMINHO DO CSS: Aponta para a nova pasta css/global.css -->
+    <link rel="stylesheet" href="css/global.css">
+</head>
+<body>
+    <div class="app-viewport-wrapper">
+        <div class="container">
+            
+<!-- Substitua o bloco header-progresso dentro de frontend/dashboard.html -->
+<div class="header-progresso">
+    <div class="operator-badge-container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <div>
+            Operador: <span id="nome-tecnico-logado">Carregando...</span>
+        </div>
+        <!-- Botão de Sair com Ícone SVG Corporativo integrado -->
+        <button id="btn-logout-saas" title="Encerrar Sessão" style="background: transparent; border: none; color: #ef4444; cursor: pointer; display: flex; align-items: center; font-size: 0.75rem; font-weight: 700; gap: 4px; padding: 2px 6px; border-radius: 6px; transition: background 0.2s;">
+            <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; stroke: currentColor; stroke-width: 2.5; fill: none;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+            SAIR
+        </button>
+    </div>
+    <h1>Painel Técnico</h1>
+    <div class="contador-container" id="texto-contador">0 de 0 concluídas</div>
+    <div class="track-barra-progresso">
+        <div id="fill-barra-progresso"></div>
+    </div>
+</div>
+
+
+            <!-- Formulário de Criação de Tarefas -->
+            <form id="form-tarefa">
+                <div class="container-input-validacao">
+                    <input type="text" id="input-tarefa" placeholder="Digite uma nova tarefa técnica..." autocomplete="off">
+                </div>
+                <button type="submit">Salvar</button>
+            </form>
+
+            <!-- Controles de Busca e Paginação SaaS -->
+            <div class="controles-SaaS-sprint">
+                <div class="container-busca-sprint">
+                    <input type="text" id="input-busca" placeholder="🔍 Buscar no banco..." autocomplete="off">
+                </div>
+                <div class="container-limite-exibicao">
+                    <label for="select-limite">Exibir:</label>
+                    <select id="select-limite">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Abas de Filtros de Status -->
+            <div class="abas-filtro-container">
+                <button class="aba-btn ativa" data-status="todas">Todas</button>
+                <button class="aba-btn" data-status="pendentes">Pendentes</button>
+                <button class="aba-btn" data-status="concluidas">Concluídas</button>
+            </div>
+
+            <!-- Lista de Itens Dinâmicos -->
+            <ul id="lista-tarefas"></ul>
+
+            <!-- Rodapé de Paginação -->
+            <div class="paginacao-container">
+                <button id="btn-pag-anterior">Anterior</button>
+                <div class="numeros-paginas-wrapper" id="numeros-paginas-container"></div>
+                <button id="btn-pag-proxima">Próxima</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- CORREÇÃO DOS SCRIPTS: Carregamento na ordem modular exata da árvore do VS Code -->
+    <script src="src/services/ApiService.js"></script>
+    <script src="src/controllers/AuthController.js"></script>
+    <script src="src/controllers/DashController.js"></script>
+</body>
+</html>
